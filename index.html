@@ -4,91 +4,227 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RiffNotes – A Simple Lesson & Student Management App</title>
+
   <style>
     :root {
       --bg: #fdfdfd;
-      --text: #222;
+      --bg-alt: #ffffff;
+      --text: #222222;
+      --muted: #666666;
       --accent: #4a7cff;
-      --light-border: #e2e2e2;
+      --accent-soft: rgba(74, 124, 255, 0.08);
+      --border-light: #e2e2e2;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, sans-serif;
-      background: var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top right, #fff7eb, #fdfdfd 50%, #ffffff);
       color: var(--text);
       margin: 0;
       padding: 0;
       line-height: 1.6;
     }
 
-    header {
-      padding: 3rem 1.5rem;
-      text-align: center;
-      max-width: 760px;
+    a {
+      color: var(--accent);
+    }
+
+    /* --- Layout --- */
+
+    .page {
+      max-width: 960px;
       margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .logo-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
     }
 
     .title {
-      font-size: 2.6rem;
+      font-size: clamp(2.1rem, 4vw, 2.8rem);
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin: 0;
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      opacity: 0.75;
-      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 0.75rem 0 1.75rem;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
     }
 
     .btn {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
       background: var(--accent);
       color: white;
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.2s ease;
+      font-size: 0.98rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
     }
+
     .btn:hover {
       background: #2e63f5;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent-soft);
+      box-shadow: none;
+      transform: translateY(-1px);
     }
 
     section {
-      padding: 3rem 1.5rem;
-      max-width: 760px;
-      margin: 0 auto;
+      padding: 2.5rem 0;
     }
 
-    .features {
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p.lead {
+      color: var(--muted);
+      max-width: 56rem;
+    }
+
+    /* --- Features --- */
+
+    .features-grid {
+      margin-top: 1.75rem;
       display: grid;
-      gap: 2rem;
       grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
 
-    .feature {
-      padding: 1rem;
-      border-left: 4px solid var(--accent);
-      background: white;
-      border-radius: 4px;
-      border: 1px solid var(--light-border);
+    .feature-card {
+      background: var(--bg-alt);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border-light);
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
 
-    .feature h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
+    .feature-card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
     }
+
+    .feature-icon {
+      margin-right: 0.35rem;
+    }
+
+    /* --- Screenshots --- */
+
+    #screenshots {
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .screenshot-figure {
+      margin: 0 0 2.75rem;
+    }
+
+    .screenshot-img {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+      display: block;
+    }
+
+    .screenshot-caption {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* --- Beta section --- */
+
+    .beta-box {
+      background: var(--accent-soft);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(74, 124, 255, 0.25);
+      padding: 1.5rem 1.4rem;
+      margin-top: 1.25rem;
+    }
+
+    .beta-list {
+      margin: 0.6rem 0 0;
+      padding-left: 1.4rem;
+      color: var(--muted);
+    }
+
+    /* --- Footer --- */
 
     footer {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 2.5rem;
       font-size: 0.9rem;
-      opacity: 0.6;
+      color: var(--muted);
     }
 
-    @media (min-width: 700px) {
-      .features {
-        grid-template-columns: repeat(2, 1fr);
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+
+    /* --- Responsive --- */
+
+    @media (min-width: 720px) {
+      .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      header {
+        padding-top: 3.5rem;
       }
     }
   </style>
@@ -96,103 +232,153 @@
 
 <body>
 
-  <header>
-    <h1 class="title">RiffNotes</h1>
-    <p class="subtitle">A fast, clean, and distraction-free lesson planner for independent music instructors.</p>
-    <a class="btn" href="#about">Learn More</a>
-  </header>
+  <div class="page">
 
-  <section id="about">
-    <h2>What is RiffNotes?</h2>
-    <p>
-      RiffNotes is a lightweight, local-first teaching app built for private music instructors.
-      Manage students, weekly lessons, ensembles, notes, repertoire, and resource links — all without SaaS
-      complexity, subscriptions, or cloud accounts.
-    </p>
-  </section>
-
-  <section>
-    <h2>Key Features</h2>
-    <div class="features">
-
-      <div class="feature">
-        <h3>🎵 Student & Lesson Management</h3>
-        <p>Track weekly lessons, one-off changes, attendance, and detailed lesson notes effortlessly.</p>
+    <!-- Hero -->
+    <header>
+      <div class="logo-row">
+        <div class="logo-mark">♫</div>
+        <div style="font-weight:700;">RiffNotes</div>
       </div>
 
-      <div class="feature">
-        <h3>🎼 Ensemble Support</h3>
-        <p>Manage rehearsals, repertoire, cancellations, and ensemble-specific notes.</p>
+      <h1 class="title">Lesson planning that keeps up with your teaching.</h1>
+      <p class="subtitle">
+        RiffNotes is a fast, distraction-free lesson and student manager for music instructors.
+        Keep track of students, schedules, notes, ensembles, and resources – all in one clean, local-first app.
+      </p>
+
+      <div class="hero-cta-row">
+        <a class="btn" href="#screenshots">See RiffNotes in action</a>
+        <a class="btn btn-outline" href="#beta">Request private beta access</a>
       </div>
+    </header>
 
-      <div class="feature">
-        <h3>🔗 Resource Links</h3>
-        <p>Attach URLS to videos, sheet music, and practice materials to lessons or songs with a click.</p>
+    <!-- About -->
+    <section id="about">
+      <h2>Built for individual music teachers, not enterprise studios.</h2>
+      <p class="lead">
+        Most studio software is built for businesses – billing, CRM, parent portals, and admin dashboards.
+        RiffNotes is different. It focuses on the <strong>day-to-day teaching workflow</strong> of a single instructor:
+        who you’re teaching, what you covered, what’s coming next, and which resources you used.
+      </p>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <h3><span class="feature-icon">🎵</span>Students & Weekly Lessons</h3>
+          <p>See your entire teaching week at a glance. Track regular lessons, one-offs, and cancellations without
+             wrestling with a full calendar system.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3><span class="feature-icon">🎼</span>Ensembles & Rehearsals</h3>
+          <p>Instruct bands, combos, and ensembles with dedicated rehearsal tracking, notes, and repertoire management.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3><span class="feature-icon">🔗</span>Resources & Links</h3>
+          <p>Attach URLS to videos, charts, tabs, backing tracks, and reference material to lessons or songs so you can find them
+             instantly next time.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3><span class="feature-icon">🌓</span>Themes that fit your vibe</h3>
+          <p>Work the way you like with Professional, Warm, Dark, and High Contrast themes. Great for late-night prep or
+             bright studio environments.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3><span class="feature-icon">🖨️</span>Clean, Printable Views</h3>
+          <p>Generate student and ensemble printouts that are clear, readable, and designed for music teaching – not
+             generic spreadsheets.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3><span class="feature-icon">💾</span>Local-first & Private</h3>
+          <p>All your data lives on your device. No web accounts, no subscriptions, and no need to hand your studio data
+             to a third-party server.</p>
+        </article>
       </div>
+    </section>
 
-      <div class="feature">
-        <h3>🌓 Multiple Themes</h3>
-        <p>Professional, Warm, Dark, and High Contrast themes give you control over the vibe and readability.</p>
+    <!-- Screenshots -->
+    <section id="screenshots">
+      <div style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
+        <h2 style="text-align:center; margin-bottom:0.5rem;">Screenshots</h2>
+        <p class="lead" style="text-align:center; margin:0 auto 2rem; max-width:36rem;">
+          A quick look at RiffNotes in action. These are real screens from the current private beta.
+        </p>
+
+        <figure class="screenshot-figure">
+          <img
+            src="assets/screenshots/dashboard.png"
+            alt="RiffNotes dashboard in the Professional theme"
+            class="screenshot-img"
+          />
+          <figcaption class="screenshot-caption">
+            Dashboard – a quick overview of active students, today’s lessons, this week’s load, and a built-in metronome.
+          </figcaption>
+        </figure>
+
+        <figure class="screenshot-figure">
+          <img
+            src="assets/screenshots/weekly.png"
+            alt="Weekly lesson schedule view"
+            class="screenshot-img"
+          />
+          <figcaption class="screenshot-caption">
+            Weekly View – see your entire teaching week at a glance, including one-offs and cancellations.
+          </figcaption>
+        </figure>
+
+        <figure class="screenshot-figure">
+          <img
+            src="assets/screenshots/student.png"
+            alt="Student detail page in the Dark theme"
+            class="screenshot-img"
+          />
+          <figcaption class="screenshot-caption">
+            Student Detail – notes, recent lessons, and resources all in one place, shown here in the Dark theme.
+          </figcaption>
+        </figure>
       </div>
+    </section>
 
-      <div class="feature">
-        <h3>🖨️ Clean Printouts</h3>
-        <p>Generate simple, readable student summaries and ensemble print pages designed for music teaching.</p>
+    <!-- Private beta -->
+    <section id="beta">
+      <h2>Currently in private beta.</h2>
+      <p class="lead">
+        RiffNotes is being used in real lessons and rehearsals while it’s being refined.
+        If you’re a music instructor and you’d like to try it out, you’re invited to join the private beta,
+        which is set to start in Jan 2026.
+      </p>
+
+      <div class="beta-box">
+        <strong>What you’ll get:</strong>
+        <ul class="beta-list">
+          <li>Access to the current Windows/macOS builds (local-only, no cloud).</li>
+          <li>Update notifications when major improvements land.</li>
+          <li>A direct line for feedback that can shape the app’s direction.</li>
+        </ul>
+
+        <p style="margin-top: 1rem;">
+          Interested? Send a quick email with your name, instruments you teach, and what kind of teaching you do
+          (private lessons, ensembles, school, etc.).
+        </p>
+
+        <p style="margin-top: 0.75rem;">
+          <a class="btn" href="mailto:jakefitzenreider@gmail.com?subject=RiffNotes%20Private%20Beta">
+            Request beta access
+          </a>
+        </p>
       </div>
+    </section>
 
-      <div class="feature">
-        <h3>💾 Local-First & Private</h3>
-        <p>Your data lives on your device — no cloud, no subscriptions, no logins beyond your local passcode.</p>
-      </div>
-
-    </div>
-  </section>
-<section id="screenshots" style="padding: 3rem 1.5rem; max-width: 900px; margin: 0 auto;">
-  <h2 style="text-align:center; margin-bottom: 1rem;">Screenshots</h2>
-  <p style="text-align:center; opacity: 0.7; margin-bottom: 2rem;">
-    A quick look at RiffNotes in action.
-  </p>
-
-  <figure style="margin-bottom: 3rem;">
-    <img src="assets/screenshots/dashboard.png"
-         alt="RiffNotes Dashboard"
-         style="width:100%; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-    <figcaption style="text-align:center; margin-top:0.75rem; font-size:0.9rem; opacity:0.7;">
-      Dashboard – quick overview of the day’s teaching.
-    </figcaption>
-  </figure>
-
-  <figure style="margin-bottom: 3rem;">
-    <img src="assets/screenshots/weekly.png"
-         alt="Weekly Schedule"
-         style="width:100%; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-    <figcaption style="text-align:center; margin-top:0.75rem; font-size:0.9rem; opacity:0.7;">
-      Weekly View – see all lessons for the selected week.
-    </figcaption>
-  </figure>
-
-  <figure style="margin-bottom: 3rem;">
-    <img src="assets/screenshots/student.png"
-         alt="Student detail page"
-         style="width:100%; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-    <figcaption style="text-align:center; margin-top:0.75rem; font-size:0.9rem; opacity:0.7;">
-      Student Detail – notes, resources, and upcoming lessons.
-    </figcaption>
-  </figure>
-
-</section>
-
-  <section>
-    <h2>Private Beta</h2>
-    <p>
-      RiffNotes is currently in a small private beta. If you're a music instructor and you’d like to try it out,
-      you can reach out below.
-    </p>
-    <a class="btn" href="mailto:jake.fitzenreider@gmail.com">Request Access</a>
-  </section>
+  </div>
 
   <footer>
     © <span id="year"></span> RiffNotes. Built with ❤️ for music teachers.
+    <br />
+    This is an early-stage project; details and features may change.
   </footer>
 
   <script>
@@ -201,4 +387,3 @@
 
 </body>
 </html>
-
